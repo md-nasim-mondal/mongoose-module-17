@@ -29,7 +29,8 @@ notesRoutes.post("/create-note", async (req: Request, res: Response) => {
 });
 
 notesRoutes.get("/", async (req: Request, res: Response) => {
-  const notes = await Note.find();
+  // const notes = await Note.find();
+  const notes = await Note.find().populate("user");
   res.status(201).json({
     success: true,
     message: "Notes retrieve successfully!",
@@ -40,8 +41,9 @@ notesRoutes.get("/", async (req: Request, res: Response) => {
 notesRoutes.get("/:noteId", async (req: Request, res: Response) => {
   const noteId = req.params.noteId;
 
-  const note = await Note.findById(noteId);
+  // const note = await Note.findById(noteId);
   //   const note = await Note.findOne({_id: noteId});
+  const note = await Note.findById(noteId).populate("user");
 
   res.status(201).json({
     success: true,
