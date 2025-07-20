@@ -32,10 +32,9 @@ usersRoutes.post("/create-user", async (req: Request, res: Response) => {
 
     // Built in and custom static methods
 
-    // const password = await User.hashPassword(body.password) 
+    // const password = await User.hashPassword(body.password)
     // body.password = password
     const user = await User.create(body);
-
 
     res.status(201).json({
       success: true,
@@ -52,8 +51,33 @@ usersRoutes.post("/create-user", async (req: Request, res: Response) => {
   }
 });
 usersRoutes.get("/", async (req: Request, res: Response) => {
-  const users = await User.find();
+  let users = [];
 
+  //   const userEmail = req.query.email;
+
+  // Filtering
+  //   if (userEmail) {
+  //     users = await User.find({ email: userEmail });
+  //   } else {
+  //     users = await User.find();
+  //   }
+
+  // Sorting
+  // users = await User.find().sort({email: "asc"})
+  // users = await User.find().sort({email: "ascending"})
+  // users = await User.find().sort({email: "desc"})
+  // users = await User.find().sort({email: "descending"})
+  // users = await User.find().sort({email: 1})
+  //   users = await User.find().sort({ email: -1 });
+
+  // Skipping
+  //   users = await User.find().skip(2);
+
+  // limiting
+  //   users = await User.find().limit(2);
+
+  users = await User.find();
+  
   res.status(201).json({
     success: true,
     message: "All Users retreived successfuly",
