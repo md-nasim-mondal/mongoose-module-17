@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { User } from "../models/user.model";
 import z from "zod";
+import bcrypt from "bcryptjs";
 
 export const usersRoutes = express.Router();
 
@@ -18,7 +19,23 @@ usersRoutes.post("/create-user", async (req: Request, res: Response) => {
     // const zodBody = await CreateUserZodSchema.parseAsync(req.body);
     const body = req.body;
 
+    // const password = await bcrypt.hash(body.password, 10);
+
+    // body.password = password;
+
+    // Built in adn custom instance methods
+    // const user = new User(body);
+
+    // const password = await user.hashPassword(body.password);
+    // user.password = password;
+    // await user.save();
+
+    // Built in and custom static methods
+
+    const password = await User.hashPassword(body.password) 
+    body.password = password
     const user = await User.create(body);
+
 
     res.status(201).json({
       success: true,
