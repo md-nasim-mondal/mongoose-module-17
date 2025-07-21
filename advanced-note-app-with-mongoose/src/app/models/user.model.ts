@@ -89,14 +89,12 @@ userSchema.static("hashPassword", async function (plainPassword: string) {
 // Pre Hooks
 
 // Document Middleware
-
 userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
 // Query Middleware
-
 userSchema.pre("find", function (next) {
   next();
 });
